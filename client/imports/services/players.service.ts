@@ -4,7 +4,7 @@ import {Http} from "@angular/http";
 @Injectable()
 export class PlayersService {
 
-  host = '192.168.1.65:8080';
+  host = '192.168.88.149:8080';
 
   constructor(
     private http: Http

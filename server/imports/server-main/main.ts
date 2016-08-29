@@ -10,12 +10,13 @@ export class Main {
 
   start():void {
     this.initFakeData();
-    this.initGamesData();
+    this.initGamesData('76561198314313838');
+    this.initGamesData('76561198016668101');
   }
 
-  initGamesData() {
+  initGamesData(steamId) {
     console.log('GET GAMES');
-    HTTP.call('GET', 'http://steamcommunity.com/profiles/76561198321699378/games/?tab=all&xml=1', {},
+    HTTP.call('GET', `http://steamcommunity.com/profiles/${steamId}/games/?tab=all&xml=1`, {},
         (err: any, res: any) => {
           if(err) {
             console.log('ERROR!');
@@ -39,7 +40,7 @@ export class Main {
                   jsResult.gamesList.games.game.map(
                     (game: GameObject) => {
                       console.log(game);
-
+                      game.steamId = steamId;
                       game.selected = false;
                       game.logo_big = `http://cdn.akamai.steamstatic.com/steam/apps/${game.appID}/header.jpg`;
                       game.logo = `this.src='${game.logo}'`;

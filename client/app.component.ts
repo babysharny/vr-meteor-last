@@ -2,6 +2,7 @@ import {Component, ViewEncapsulation} from '@angular/core';
 
 import template from './app.component.html';
 import style from './app.component.css';
+
 import {AdminPanelComponent} from "./imports/admin-panel/admin-panel.component";
 import {GamesService} from "./imports/services/games.service";
 import {HTTP_PROVIDERS} from "@angular/http";
@@ -22,6 +23,20 @@ import {PlayersService} from "./imports/services/players.service";
   style
 })
 export class AppComponent {
+
+  right = {
+    name: 'NEO',
+    steamId: '76561198016668101',
+    host: '192.168.88.48:8080'
+  }
+
+
+  left = {
+    name: 'SWITCH',
+    steamId: '76561198314313838',
+    host: '192.168.88.149:8080'
+  }
+
 
   constructor() {
       // this.parties = Parties.find();

@@ -6,7 +6,7 @@
      <!--onmousedown="return false;"-->
 
 
-  <h2 class="title" align="center">NEO</h2>
+  <h2 class="title" align="center">{{data.name}}</h2>
 
   <app-player-login></app-player-login>
 
@@ -15,7 +15,8 @@
   <app-state-switchers></app-state-switchers>
   <app-games-grid [games]="games"></app-games-grid>
   <app-main-actions></app-main-actions>
-
+    <br />
+    <br />
     <button class="btn btn-default" (click)="showSettings = !showSettings">settings</button>
 </div>
 <div *ngIf="showSettings" class="settings">

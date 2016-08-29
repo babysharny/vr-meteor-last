@@ -32,11 +32,8 @@ import {Games} from "../../../both/collections/games.collection";
 })
 export class AdminPanelComponent implements OnInit {
 
-  @Input() data = {
-    name: 'NEO',
-    steamId: '13123123',
-    remote: 'url',
-  };
+  @Input() data: any;
+
   games: any;
   bonuses: any;
   showSettings = false;
@@ -50,10 +47,13 @@ export class AdminPanelComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.remote.host = this.data.host;
     // this.gamesService.updateForId(this.data.steamId, this.data.remote);
-    this.games = Games.find({}, {
+    this.games = Games.find({
+      steamId: this.data.steamId
+    }, {
       transform: (x) => {
-        // console.log('Transform for ', x);
+        console.log('Transform for ', x);
         return x;
       }
     });
