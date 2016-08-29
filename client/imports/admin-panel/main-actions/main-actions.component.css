@@ -1,0 +1,60 @@
+
+/* ACTION PANEL */
+.btn-img {
+  background-color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 55px;
+  width: 55px;
+  /* padding: 10px; */
+  margin: 10px 25px 0 0;
+  padding: 35px 0 0 35px;
+}
+
+.btn-img:hover {
+  opacity: 0.7;
+  /*box-shadow: 0 0 10px rgba(0,0,0,0.5); !* Параметры тени *!*/
+  /*padding: 10px;*/
+}
+
+.btn-img:active {
+  opacity: 0.4;
+}
+
+#steam {
+  background-image: url("./img/share_steam_logo.png");
+}
+
+#music {
+  background-image: url("./img/clipart-music-notes-musical_notes_set_black.png");
+}
+
+#video {
+  background-image: url("./img/video-icon-2.png");
+}
+
+#reload {
+  background-image: url("./img/reload-icon-hi copy.png");
+}
+
+#pause {
+  background-image: url("./img/pause.png");
+}
+
+#vr {
+  margin-top: 15px;
+  height: 45px;
+  width: 80px;
+  padding: 30px 0 0 60px;
+  background-image: url("./img/Layer 13 copy.png");
+}
+
+#gg {
+  height: 55px;
+  width: 173px;
+  background-image: url("./img/1194984762373696923pill-button-red_benji_pa_01.svg.hi.png");
+}
+
+.right-bottom-img {
+  background-color: transparent;
+}

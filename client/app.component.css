@@ -1,0 +1,51 @@
+
+body {
+  background-color: #252525;
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+  height: 300px;
+  /*overflow-y: scroll;*/
+
+}
+
+* {
+  margin: 0;
+}
+
+.container {
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+
+}
+
+.large-header {
+  position: relative;
+  width: 100%;
+  height: auto !important;
+  background: #333;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center center;
+  z-index: 1 !important;
+}
+
+#demo-canvas {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+.row {
+  height: 100%;
+  /*overflow-y: scroll;*/
+}
+
+/*//@import "vendor/css/component";*/
+/*//@import "vendor/css/demo";*/
+/*//@import "vendor/css/main";*/
+/*//@import "vendor/css/normalize";*/
+/*//@import "vendor/css/style12";*/
+/*//*/
+/*//@import "./imports/demo/demo.component";*/

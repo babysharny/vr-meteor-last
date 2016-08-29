@@ -1,0 +1,32 @@
+<div class="row">
+
+  <div class="col-md-5 col-sm-5 col-xs-5">
+    <div (click)="timeModeLeft = !timeModeLeft"
+      class="time-block">
+      <h2 *ngIf="!timeModeLeft" class="title">Время</h2>
+      <h2 *ngIf="timeModeLeft" class="title">Осталось</h2>
+      <h1 class="time">
+        {{session.timer.moment | timeLeft:[timeModeLeft, (session.minutes + session.freeMinutes)*60]}}
+      </h1>
+
+    </div>
+  </div>
+
+  <div class="col-md-2 col-sm-2 col-xs-2">
+    <div class="names">
+      <p *ngFor="let player of session.players">{{player.name}}</p>
+    </div>
+  </div>
+
+  <div class="col-md-5 col-sm-5 col-xs-5">
+    <div class="right">
+      <h2 class="title">
+        Цена
+      </h2>
+      <h1 class="time">
+        {{session.timer.moment | payment:[session.freeMinutes*60, session.discount]}}
+        ₽<!--1000₽-->
+      </h1>
+    </div>
+  </div>
+</div>

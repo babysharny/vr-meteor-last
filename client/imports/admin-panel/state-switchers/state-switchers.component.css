@@ -1,0 +1,26 @@
+
+
+.right-switcher {
+  text-align: left;
+  width: auto;
+  float: right;
+}
+
+button.selected {
+  background-color: #181818;
+  /*opacity: 0.4;*/
+}
+
+.btn-default {
+  background-color: transparent;
+  padding: 3px 9px;
+  font-size: large;
+  width: 100%;
+  text-transform: lowercase;
+  color: white;
+  font-variant: small-caps;
+}
+
+td {
+  padding: 5px;
+}

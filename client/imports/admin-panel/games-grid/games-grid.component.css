@@ -1,0 +1,31 @@
+/* GAME GRID */
+.game {
+  padding: 3px 3px 3px 3px !important;
+  /*background-color: #01ff70;*/
+  width: 100%;
+  height: auto;
+}
+
+
+
+img {
+  background-color: black;
+}
+.game>img {
+  height: 150%;
+  /*background-size: cover;*/
+  /*max-width:80%;*/
+  /*max-height:100%;*/
+  /*width:auto;*/
+  /*height:auto;*/
+  object-fit: cover;
+}
+
+.selected>img {
+  opacity: 0.5;
+  /*opacity: 0.5;*/
+  /*border: thin double #0dff2f;*/
+}
+.no-padding {
+  padding: 0px;
+}

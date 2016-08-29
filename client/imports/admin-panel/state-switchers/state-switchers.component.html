@@ -1,0 +1,64 @@
+
+<div class="row">
+  <div class="col-md-6 col-sm-6 col-xs-6 no-padding">
+    <h3>таймер</h3>
+    <table>
+      <tr>
+        <td>
+          <button class="btn btn-default"
+                  [ngClass]="{'selected': session.minutes == 15}"
+                  (click)="setTime(15)">15 минут</button>
+        </td>
+        <td>
+          <button class="btn btn-default"
+                  [ngClass]="{'selected': session.minutes == 30}"
+                  (click)="setTime(30)">30 минут</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button class="btn btn-default"
+                  [ngClass]="{'selected': session.minutes == 45}"
+                  (click)="setTime(45)">45 минут</button>
+        </td>
+        <td>
+          <button class="btn btn-default"
+                  [ngClass]="{'selected': session.minutes == 60}"
+                  (click)="setTime(60)">1 час</button>
+
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-6 col-sm-6 col-xs-6 right-switcher no-padding">
+
+    <h3>бонус / скидка</h3>
+    <table align="right">
+      <tr>
+        <td>
+          <button class="btn btn-default"
+                  [ngClass]="{'selected': session.freeMinutes == 5}"
+                  (click)="setBonus(5)">5 минут</button>
+        </td>
+        <td>
+          <button class="btn btn-default"
+                  [ngClass]="{'selected': session.freeMinutes == 10}"
+                  (click)="setBonus(10)">10 минут</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button class="btn btn-default"
+                  [ngClass]="{'selected': session.discount == 20}"
+                  (click)="setDiscount(20)">20%</button>
+        </td>
+        <td>
+          <button class="btn btn-default"
+                  [ngClass]="{'selected': session.discount == 30}"
+                  (click)="setDiscount(30)">30%</button>
+
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
