@@ -20,10 +20,28 @@ export class MainActionsComponent implements OnInit {
   ngOnInit() {
   }
 
+
   gg(){
     console.info('SET STATE HERE!');
     // let g = this.getSelectedGame();
     // console.info(g);
     // this.remote.startGame(g);
   }
+
+  steam() {
+    this.remote.restartSteam();
+  }
+
+  vr() {
+    this.remote.restartVR();
+  }
+
+  music() {
+    this.remote.playMusic();
+  }
+
+  video() {
+    this.remote.video();
+  }
+
 }

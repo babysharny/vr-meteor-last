@@ -10,21 +10,43 @@ export class PlayersService {
     private http: Http
   ) { }
 
-  startSteam() {
-    console.log("start steam signal here");
-    let url = `http://${this.host}/1/startSteam`;
+  restartSteam() {
+    console.log('start steam signal here');
+    let url = `http://${this.host}/1/restartSteam`;
     this.http.get(url)
       .subscribe(
         x => {
           console.log(x);
         }
-      )
+      );
   }
 
-  restartSteam() {
-    this.killApp('steam');
-    this.startSteam();
+  restartVR() {
+    console.log('restart VR');
+    this.killApp('vr');
+    this.startGame({appID: '250820'});
   }
+
+  playMusic() {
+    console.log('Play Music');
+    let url = `http://${this.host}/1/sendKeys?keys={MEDIA_PLAY_PAUSE}`;
+    this.http.get(url)
+      .subscribe(
+        x => {
+          console.log(x);
+        }
+      );
+  }
+
+  video() {
+    console.log('Open Video');
+
+  }
+
+  // restartSteam() {
+  //   this.killApp('steam');
+  //   this.startSteam();
+  // }
 
   killApp(appName) {
     let url = `http://${this.host}/1/cmd?cmd=taskkill /f /im ${appName}*`;

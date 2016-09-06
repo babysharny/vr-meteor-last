@@ -58,6 +58,7 @@ export class AdminPanelComponent implements OnInit {
       }
     });
   }
+
   saveAll(games) {
     console.log('save all ', games);
   }

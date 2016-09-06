@@ -28,15 +28,19 @@ export class AppComponent {
     name: 'NEO',
     steamId: '76561198016668101',
     host: '192.168.88.48:8080'
-  }
+  };
 
+  me = {
+    name: 'SIMON',
+    steamId: '76561198321699378',
+    host: '192.168.1.69:81'
+  };
 
   left = {
     name: 'SWITCH',
     steamId: '76561198314313838',
     host: '192.168.88.149:8080'
-  }
-
+  };
 
   constructor() {
       // this.parties = Parties.find();
