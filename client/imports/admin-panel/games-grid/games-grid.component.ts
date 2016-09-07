@@ -1,11 +1,15 @@
 import {Component, OnInit, Input, Inject} from '@angular/core';
-import template from './games-grid.component.html';
-import styles from './games-grid.component.css';
-import {GridPipe} from "./pipes/grid.pipe";
+
 import {GameComponent} from "./components/game.component";
-import {Games} from "../../../../both/collections/games.collection";
+import {GridPipe} from "./pipes/grid.pipe";
+
 import {SessionService} from "../../services/session.service";
 import {PlayersService} from "../../services/players.service";
+import {GamesService} from "../../services/games.service";
+
+import template from './games-grid.component.html';
+import styles from './games-grid.component.css';
+
 @Component({
   // moduleId: module.id,
   selector: 'app-games-grid',
@@ -13,8 +17,6 @@ import {PlayersService} from "../../services/players.service";
   pipes: [GridPipe],
   template,
   styles
-  // templateUrl: 'games-grid.component.html',
-  // styleUrls: ['games-grid.component.css']
 })
 export class GamesGridComponent implements OnInit {
   @Input() games: any;
@@ -22,7 +24,8 @@ export class GamesGridComponent implements OnInit {
 
   constructor(
     @Inject(SessionService) private session: SessionService,
-    @Inject(PlayersService) private remote: PlayersService
+    @Inject(PlayersService) private remote: PlayersService,
+    private gameService: GamesService
   ) { }
 
   ngOnInit() {
@@ -30,39 +33,29 @@ export class GamesGridComponent implements OnInit {
 
 
   selectGame(game) {
+    // Check started games
+
+    if (!this.session.validatePlayers()) {
+      alert('Add Players!');
+      return;
+    }
+
     if(this.selectedGame) {
       this.selectedGame.selected = false;
       this.remote.killApp(this.selectedGame.app);
     }
+
     game.selected = true;
+    this.gameService.saveGame(game);
+    // todo save game to mongo
+
     this.selectedGame = game;
-
-    this.session.startTimer();
     this.remote.startGame(game);
-    // this.games.forEach(g => {
-    //   g.selected = false;
-    // });
-    // Games.find({
-    //   selected: true
-    // });
 
-    // Games.update({
-    //     selected: true
-    // }, {
-    //   set: {
-    //     selected: false
-    //   },
-    // });
+    if (!this.session.isStarted()) {
+      this.session.nextState();
+    }
 
-    // Games.update({
-    //   _id: game._id
-    // }, {
-    //   set: {
-    //     selected: true
-    //   },
-    // });
-
-    // game.selected = true;
   }
 
 }

@@ -1,30 +1,53 @@
 <div class="actions">
   <div class="row">
-
-    <div class="col-xs-8 left">
-      <button class="btn btn-img" id="steam"
-              (click)="steam()">
-        <img class="right-bottom-img" src="./img/reload-icon-hi copy.png" alt="">
-      </button>
-      <button class="btn btn-img" id="vr"
-              (click)="vr()">
-        <img class="right-bottom-img" src="./img/reload-icon-hi copy.png" alt="">
-      </button>
-      <button class="btn btn-img" id="music"
-              (click)="music()">
-        <img class="right-bottom-img" src="./img/pause.png" alt="">
-      </button>
-      <button class="btn btn-img" id="video"
-              (click)="video()">
-        <img class="right-bottom-img" src="./img/pause.png" alt="">
-      </button>
+    <table>
+      <tr>
+        <td>
+          <button class="btn btn-img" id="steam"
+                  (click)="steam()">
+            <img class="right-bottom-img" src="./img/reload-icon-hi copy.png" alt="">
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-img" id="vr"
+                  (click)="vr()">
+            <img class="right-bottom-img" src="./img/reload-icon-hi copy.png" alt="">
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-img" id="music"
+                  (click)="music()">
+            <img class="right-bottom-img" src="./img/pause.png" alt="">
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-img" id="video"
+                  (click)="video()">
+            <img class="right-bottom-img" src="./img/pause.png" alt="">
+          </button>
+        </td>
+        <td width="100%"></td>
+        <td>
+           <button (click)="gg()" id="gg" class="btn btn-img">{{session.current.state | ggTitle}}</button>
+        </td>
+      </tr>
+    </table>
+    <div class="col-xs-8 left no-padding">
     </div>
 
-    <div class="col-xs-4 right">
-      <button class="btn btn-img"
-              id="gg"
-              (click)="gg()"
-      >Stop session!</button>
+    <div class="col-xs-4 right no-padding">
     </div>
   </div>
 </div>
+<table>
+    <tr>
+        <td>
+<button class="btn btn-default" (click)="fullScreen()">Full Screen</button>
+
+        </td>
+        <td>
+<button class="btn btn-default" (click)="killAll()">Kill All</button>
+
+        </td>
+    </tr>
+</table>

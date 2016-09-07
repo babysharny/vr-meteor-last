@@ -1,0 +1,20 @@
+input {
+  text-transform: none !important;
+}
+
+.logo {
+  padding-bottom: 5px;
+  background-color: transparent;
+}
+
+h2.stg {
+  margin-top: 0px !important;
+}
+
+label.stg {
+  margin-top: 3px;
+}
+
+input.stg {
+  margin-top: 6px;
+}

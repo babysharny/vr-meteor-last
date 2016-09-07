@@ -1,65 +1,93 @@
 import { Injectable } from '@angular/core';
 import {Http} from "@angular/http";
 import "rxjs/Rx"
+import {Games} from "../../../both/collections/games.collection";
+import {PlayersService} from "./players.service";
+import {AdminPanelService} from "./admin-panel.service";
 
 @Injectable()
 export class GamesService {
 
-  left = [];
-  right = [];
-  rightGrid = [];
+  games: any;
 
   constructor(
-    private http: Http
-  ) { }
-
-  updateLeft() {
-
-  }
-
-  updateRight() {
+    private admin: AdminPanelService,
+    private remote: PlayersService
+  ) {
 
   }
 
-  updateForId(steamId: any, remote: any) {
-    return;
-    steamId = '76561198314313838';
+  init(steamId){
+    this.games = Games.find({
+      steamId: steamId
+    }, {
+      transform: (x) => {
+        // console.log('Transform for ', x);
+        return x;
+      }
+    });
+  }
 
-    // let url = `http://steamcommunity.com/profiles/${steamId}/games/?tab=all&xml=1`;
-    // let url = `./api/games.xml`;
-    // let url = `./api/games.json`;
-    let url = `./api/switch_games.json`;
-    // let url = `./api/games_all.json`;
-    this.http.get(url)
-      .subscribe(
-        (res: any) => {
-          let obj = JSON.parse(res._body);
-          console.log(res);
-          console.log(obj);
-          this.right = obj.games
-            .map((x: any) => {
+  saveAll(games) {
+    console.log('save all ', games);
+  }
 
-                x.selected = false;
-                x.logo_big = `http://cdn.akamai.steamstatic.com/steam/apps/${x.appID}/header.jpg`;
-                x.logo = `this.src='${x.logo}'`;
-                return x;
-              }
-            );
+  saveGameProcessName(game) {
+    console.log('save ', game);
+    Games.update(game._id, {
+      $set: {
+        app: game.app
+      }
+    });
+  }
 
-          let grid = [];
-          let line = [];
-          this.right.forEach(
-            (g: any, index: number, arr: any[]) => {
-              line.push(g);
-              if ((index+1)%4 == 0 || arr.length - 1 == index) {
-                grid.push(line);
-                line = [];
-              }
-            });
-          console.log(grid);
-          this.rightGrid = grid;
-        }
-      )
+  saveGame(game) {
+    console.log('save ', game);
+    Games.update(game._id, game);
+  }
+
+  getSelectedGame() {
+    let res;
+
+    this.games.forEach(line => {
+      line.forEach(g => {
+         if (g.selected === true) {
+           res = g;
+         }
+      })
+    });
+
+    return res;
+  }
+
+
+
+  kill(game) {
+    // todo kill game
+    // todo deselect game
+  }
+
+  killAll() {
+    let apps = this.games.fetch().map(game => game.app);
+    this.remote.killApps(apps);
+    console.log('admin', this.admin);
+    console.log('data', this.admin.data);
+
+    // todo ugly
+    Games.find(
+      {
+        'steamId' : this.admin.data.steamId,
+        'selected' : true
+      }
+    ).fetch().forEach(
+      g => {
+        Games.update(g._id, {
+          $set: {
+            selected: false
+          }
+        });
+      }
+    );
   }
 
 }

@@ -1,17 +1,22 @@
 import {Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
+import {NgClass} from "@angular/common";
+
 import {GamesService} from "../services/games.service";
 import {PlayersService} from "../services/players.service";
-import {NgClass} from "@angular/common";
+import {SessionService} from "../services/session.service";
+
 import {GamesGridComponent} from "./games-grid/games-grid.component";
 import {MainActionsComponent} from "./main-actions/main-actions.component";
 import {PlayerLoginComponent} from "./player-login/player-login.component";
 import {StateInfoComponent} from "./state-info/state-info.component";
 import {StateSwitchersComponent} from "./state-switchers/state-switchers.component";
-import {SessionService} from "../services/session.service";
+import {SettingsComponent} from "./settings/settings.component";
+
 import template from './admin-panel.component.html';
 import styles from './admin-panel.component.css';
 
 import {Games} from "../../../both/collections/games.collection";
+import {AdminPanelService} from "../services/admin-panel.service";
 
 
 @Component({
@@ -23,10 +28,16 @@ import {Games} from "../../../both/collections/games.collection";
     StateInfoComponent,
     StateSwitchersComponent,
     GamesGridComponent,
-    MainActionsComponent
+    MainActionsComponent,
+    SettingsComponent
   ],
   encapsulation: ViewEncapsulation.None,
-  providers: [SessionService],
+  providers: [
+    AdminPanelService,
+    GamesService,
+    PlayersService,
+    SessionService
+  ],
   template,
   styles
 })
@@ -40,57 +51,32 @@ export class AdminPanelComponent implements OnInit {
 
 
   constructor(
+    private service: AdminPanelService,
     private gamesService: GamesService,
     private remote: PlayersService
   ) {
-
+    service.data = this.data;
   }
 
   ngOnInit() {
-    this.remote.host = this.data.host;
-    // this.gamesService.updateForId(this.data.steamId, this.data.remote);
-    this.games = Games.find({
-      steamId: this.data.steamId
-    }, {
-      transform: (x) => {
-        console.log('Transform for ', x);
-        return x;
-      }
-    });
-  }
 
-  saveAll(games) {
-    console.log('save all ', games);
+    // todo ugly
+    this.service.data = this.data;
+
+
+    this.remote.host = this.data.host;
+    this.gamesService.init(this.data.steamId);
+    this.games = this.gamesService.games;
   }
 
   saveGame(game) {
-    console.log('save ', game);
-    Games.update(game._id, {
-      $set: {
-        app: game.app
-      }
-    });
+    this.gamesService.saveGameProcessName(game);
   }
 
   getSelectedGame() {
-    let res;
-
-    this.games.forEach(line => {
-      line.forEach(g => {
-         if (g.selected === true) {
-           res = g;
-         }
-      })
-    });
-
-    return res;
+    return this.getSelectedGame();
   }
 
-
-
-  startSteam(){
-    this.remote.startSteam();
-  }
 
 
 }

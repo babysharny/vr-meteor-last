@@ -22,8 +22,9 @@ export class PlayerLoginComponent implements OnInit {
   }
 
   add() {
+    // todo validate fields
     console.log(this.player);
-    this.session.addPlayer(this.player);
+    this.session.current.addPlayer(this.player);
     this.player = new Player;
   }
 }

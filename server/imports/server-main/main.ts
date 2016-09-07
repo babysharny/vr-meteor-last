@@ -10,13 +10,13 @@ export class Main {
 
   start():void {
     this.initFakeData();
-    // this.initGamesData('76561198314313838');
-    // this.initGamesData('76561198016668101');
-    this.initGamesData('76561198321699378');
+    this.initGamesData('76561198314313838');
+    this.initGamesData('76561198016668101');
+    this.initGamesData('76561198321699378'); // me
   }
 
   getSteamGames() {
-      
+
   }
 
   updateGames() {
@@ -46,23 +46,24 @@ export class Main {
                   // Games.remove({});
                   console.error('errors',jsError);
 
+
                   jsResult.gamesList.games.game.map(
                     (game: GameObject) => {
                       console.log(game);
                       game.steamId = steamId;
                       game.selected = false;
-                        game.logo_big = `http://cdn.akamai.steamstatic.com/steam/apps/${game.appID}/header.jpg`;
-                        game.logo = `this.src='${game.logo}'`;
-                        // Games.update(
-                        //   {
-                        //       'appID': game.appID,
-                        //   },
-                        //   game);
-                        if(!Games.findOne({'appID': game.appID})) {
-                            game.app = game.name.split(' ')[0].toLowerCase();
-                            // Games.insert(game);
-                            Games.update({'appID': game.appID}, game, {upsert: true});
-                        }
+                      game.logo_big = `http://cdn.akamai.steamstatic.com/steam/apps/${game.appID}/header.jpg`;
+                      game.logo = `this.src='${game.logo}'`;
+                      // Games.update(
+                      //   {
+                      //       'appID': game.appID,
+                      //   },
+                      //   game);
+                      if(!Games.findOne({'appID': game.appID})) {
+                          game.app = game.name.split(' ')[0].toLowerCase();
+                          // Games.insert(game);
+                          Games.update({'appID': game.appID}, game, {upsert: true});
+                      }
                     }
                   );
                 }
@@ -72,6 +73,7 @@ export class Main {
         });
 
   }
+
 
   initFakeData():void {
     if (DemoCollection.find({}).count() === 0) {

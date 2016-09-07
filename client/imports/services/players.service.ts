@@ -43,6 +43,22 @@ export class PlayersService {
 
   }
 
+  sendkeys(keys, appName?) {
+    let url = `http://${this.host}/1/sendKeys?keys=${keys}`;
+
+    if (appName) {
+      url += `&app=${appName}`;
+    }
+
+    console.info(url);
+    this.http.get(url)
+      .subscribe(
+        x => {
+          console.log(x);
+        }
+      )
+  }
+
   // restartSteam() {
   //   this.killApp('steam');
   //   this.startSteam();
@@ -51,6 +67,24 @@ export class PlayersService {
   killApp(appName) {
     let url = `http://${this.host}/1/cmd?cmd=taskkill /f /im ${appName}*`;
     console.info(url);
+    this.http.get(url)
+      .subscribe(
+        x => {
+          console.log(x);
+        }
+      )
+  }
+
+  killApps(apps: any[]) {
+    let cmd = apps.map(
+      app => {
+        return `taskkill /f /im ${app}*`;
+      }
+    ).join(' & ');
+    cmd = encodeURIComponent(cmd);
+    let url = `http://${this.host}/1/cmd?cmd=${cmd}`;
+    console.info(url);
+    url = decodeURI(url);
     this.http.get(url)
       .subscribe(
         x => {

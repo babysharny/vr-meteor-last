@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import {GamesService} from "./games.service";
+import {PlayersService} from "./players.service";
 
 enum State {
-  PreStart = 1,
+  Stopped = 1,
   Started,
-  Paused,
-  Stopped
+  Paused
 }
 
 export class Player {
@@ -12,12 +13,29 @@ export class Player {
   phone = "";
 }
 
-@Injectable()
+export class Session {
 
+  state = State.Stopped;
+  players: Player[] = [];
+  minutes: number = 0;
+  logs: any[];
+
+  constructor() {
+
+  }
+
+  addPlayer(player: Player) {
+    this.players.push(player);
+  }
+}
+
+@Injectable()
 export class SessionService {
 
-  state: State = State.Stopped;
-  players: Player[] = [];
+  // state: State = State.Stopped;
+  // players: Player[] = [];
+
+  current = new Session;
 
   // minutes = 60;
   minutes = 15;
@@ -31,12 +49,66 @@ export class SessionService {
     min60: 1000,
   };
 
-  constructor() { }
+  constructor(
+    private gamesService: GamesService,
+    private remote: PlayersService,
+    private games: GamesService
+  ) { }
 
-  addPlayer(player: Player) {
-    this.players.push(player);
+  isStarted(): boolean {
+    if (this.current.state != State.Stopped) {
+      return true;
+    }
+    return false;
   }
 
+  validatePlayers(): boolean {
+    return (this.current.players.length > 0);
+  }
+
+  nextState(): boolean {
+    if (this.current.state == State.Stopped) {
+      console.log('Start session');
+      if (!this.validatePlayers()) {
+        alert('Add players!');
+        return;
+      }
+      // start timer
+      this.timer.start();
+
+      // todo add game to log and save to Google Sheets
+
+      // todo set GG button name
+
+      this.current.state = State.Started;
+    }
+    else if (this.current.state == State.Started) {
+      console.log('Pause session');
+      // pause timer
+      this.timer.pause();
+
+      // todo show log
+
+      // stop all games
+      this.games.killAll();
+
+      // todo open video or bill on remote
+      // todo open text field to save descriptions
+
+      this.current.state = State.Paused;
+
+    }
+    else if (this.current.state == State.Paused) {
+      console.log('New session');
+
+      // todo send session to Google Sheets
+      this.timer.stop();
+      this.current = new Session();
+
+      this.current.state = State.Stopped;
+
+    }
+  }
 
   timer = new StopWatch();
 
@@ -97,3 +169,4 @@ export class StopWatch {
     return hS+':'+mS+':'+sS;
   }
 }
+

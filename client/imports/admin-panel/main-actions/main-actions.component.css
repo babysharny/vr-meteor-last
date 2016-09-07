@@ -51,7 +51,9 @@
 
 #gg {
   height: 55px;
-  width: 173px;
+  width: 160px;
+  padding: 0px;
+  margin: 0px;
   background-image: url("./img/1194984762373696923pill-button-red_benji_pa_01.svg.hi.png");
 }
 
