@@ -3,24 +3,47 @@ import { DemoDataObject } from '../../../both/models/demo-data-object';
 import { HTTP } from 'meteor/http';
 import { GameObject } from '../../../both/models/game.object';
 import { Games } from '../../../both/collections/games.collection';
+// var GoogleSpreadsheets = require('google-spreadsheets');
+// import * from 'google-spreadsheets';
+console.log('start imports');
+import { GoogleApiController } from './google-api.controller';
+
+console.log('end imports');
 
 export class Main {
+  
+  gac: GoogleApiController;
   constructor() {
   }
 
   start():void {
-    this.initFakeData();
-    this.initGamesData('76561198314313838');
-    this.initGamesData('76561198016668101');
-    this.initGamesData('76561198321699378'); // me
+
+    this.gac = new GoogleApiController();
+    this.gac.start((res) => this.ready(res));
+    // this.googleSheets();
+    // this.initFakeData();
+    // this.initGamesData('76561198314313838');
+    // this.initGamesData('76561198016668101');
+    // this.initGamesData('76561198321699378'); // me
   }
 
-  getSteamGames() {
-
+  ready(res: any): void {
+    console.log('ready!!!');
+    this.gac.listMajors();
   }
 
-  updateGames() {
+  gt() {
+    // GoogleSpreadsheet
+    let spreadsheetName = 'vr-history'; // must match exactly the name you gave your Google spreadsheet
+    let serviceEmail = '795073958503-qukpg8tt7vbsjqtufgc379ag24200fr3@developer.gserviceaccount.com'; // this is fake; replace with your own
 
+    let result = Meteor.call("spreadsheet/fetch2", spreadsheetName, "1", {email: serviceEmail});
+    console.log(result);
+  }
+
+  googleSheets() {
+    console.log('GooGle sheets!!!');
+    this.gt();
   }
 
   initGamesData(steamId) {

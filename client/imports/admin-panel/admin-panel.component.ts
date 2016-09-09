@@ -17,6 +17,7 @@ import styles from './admin-panel.component.css';
 
 import {Games} from "../../../both/collections/games.collection";
 import {AdminPanelService} from "../services/admin-panel.service";
+import {SessionLogComponent} from "./session-log/session-log.component";
 
 
 @Component({
@@ -29,7 +30,8 @@ import {AdminPanelService} from "../services/admin-panel.service";
     StateSwitchersComponent,
     GamesGridComponent,
     MainActionsComponent,
-    SettingsComponent
+    SettingsComponent,
+    SessionLogComponent
   ],
   encapsulation: ViewEncapsulation.None,
   providers: [

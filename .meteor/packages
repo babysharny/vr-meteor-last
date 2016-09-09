@@ -25,6 +25,6 @@ xolvio:cleaner
 hwillson:stub-collections
 dispatch:mocha-phantomjs
 shell-server
-ongoworks:google-spreadsheets
 http
 peerlibrary:xml2js
+ongoworks:google-spreadsheets
