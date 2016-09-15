@@ -39,15 +39,15 @@
     </div>
   </div>
 </div>
-<table>
-    <tr>
-        <td>
-<button class="btn btn-default" (click)="fullScreen()">Full Screen</button>
-
-        </td>
-        <td>
-<button class="btn btn-default" (click)="killAll()">Kill All</button>
-
-        </td>
-    </tr>
-</table>
+<br />
+<div class="row">
+    <div class="col-md-4">
+              <button class="btn btn-default" (click)="fullScreen()">Full Screen</button>
+    </div>
+    <div class="col-md-4">
+              <button class="btn btn-default" (click)="killAll()">Kill All</button>
+    </div>
+    <div class="col-md-4">
+              <button class="btn btn-default" (click)="service.showSettings = !service.showSettings">settings</button>
+    </div>
+</div>

@@ -20,11 +20,6 @@ export class GamesService {
   init(steamId){
     this.games = Games.find({
       steamId: steamId
-    }, {
-      transform: (x) => {
-        // console.log('Transform for ', x);
-        return x;
-      }
     });
   }
 

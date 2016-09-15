@@ -51,6 +51,7 @@ export class GamesGridComponent implements OnInit {
 
     this.selectedGame = game;
     this.remote.startGame(game);
+    this.session.current.addGame(game); // added game for logs  
 
     if (!this.session.isStarted()) {
       this.session.nextState();

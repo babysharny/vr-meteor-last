@@ -2,6 +2,7 @@ import {Component, OnInit, Inject} from '@angular/core';
 import template from './main-actions.component.html';
 import styles from './main-actions.component.css';
 import {PlayersService} from "../../services/players.service";
+import {AdminPanelService} from "../../services/admin-panel.service";
 import {GamesService} from "../../services/games.service";
 import {SessionService} from "../../services/session.service";
 import {GgTitlePipe} from "./pipes/gg-title.pipe";
@@ -22,7 +23,8 @@ export class MainActionsComponent implements OnInit {
   constructor(
     private session: SessionService,
     private remote: PlayersService,
-    private games: GamesService
+    private games: GamesService,
+    private service: AdminPanelService
   ) { }
 
   ngOnInit() {

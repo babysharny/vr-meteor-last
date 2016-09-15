@@ -11,13 +11,13 @@
   <app-player-login></app-player-login>
 
   <app-state-info></app-state-info>
-  <app-session-log></app-session-log>
+  <!-- <app-session-log></app-session-log> -->
   <app-state-switchers></app-state-switchers>
+  <br />
   <app-games-grid [games]="games"></app-games-grid>
   <app-main-actions></app-main-actions>
   <br />
   <br />
-  <button class="btn btn-default" (click)="service.showSettings = !service.showSettings">settings</button>
 </div>
 
 <div *ngIf="service.showSettings" class="settings">

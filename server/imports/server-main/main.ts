@@ -3,6 +3,7 @@ import { DemoDataObject } from '../../../both/models/demo-data-object';
 import { HTTP } from 'meteor/http';
 import { GameObject } from '../../../both/models/game.object';
 import { Games } from '../../../both/collections/games.collection';
+import { Sessions } from '../../../both/collections/sessions.collection';
 // var GoogleSpreadsheets = require('google-spreadsheets');
 // import * from 'google-spreadsheets';
 console.log('start imports');
@@ -11,25 +12,43 @@ import { GoogleApiController } from './google-api.controller';
 console.log('end imports');
 
 export class Main {
-  
+
   gac: GoogleApiController;
-  constructor() {
-  }
+  constructor() { }
 
   start():void {
 
     this.gac = new GoogleApiController();
     this.gac.start((res) => this.ready(res));
+
+    let sheetId = '1wOXAU9iQHtaERYsseUjSq6QOLIVuVBp1J7uTuCsf_64';
+
+    let isInit = true;
+    Sessions.find().observeChanges({
+      added: (id, doc) => {
+        if(isInit) return;
+        console.log('Add new session!');
+        console.log(doc);
+        this.gac.saveSession(doc, sheetId);
+      }
+    });
+
+    isInit = false;
     // this.googleSheets();
     // this.initFakeData();
-    // this.initGamesData('76561198314313838');
-    // this.initGamesData('76561198016668101');
-    // this.initGamesData('76561198321699378'); // me
+    this.initGamesData('76561198314313838');
+    this.initGamesData('76561198016668101');
+    this.initGamesData('76561198321699378'); // me
   }
 
   ready(res: any): void {
     console.log('ready!!!');
-    this.gac.listMajors();
+    let sheetId = '1wOXAU9iQHtaERYsseUjSq6QOLIVuVBp1J7uTuCsf_64';
+
+    // this.gac.saveData(sheetId);
+
+    // this.gac.getLastRow(sheetId);
+    // this.gac.saveDataToRow(sheetId, 'row');
   }
 
   gt() {

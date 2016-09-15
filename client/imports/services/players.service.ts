@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Http} from "@angular/http";
+import {SessionService} from './session.service';
 
 @Injectable()
 export class PlayersService {
@@ -40,7 +41,13 @@ export class PlayersService {
 
   video() {
     console.log('Open Video');
-
+    let url = `http://${this.host}/1/video`;
+    this.http.get(url)
+      .subscribe(
+        x => {
+          console.log(x);
+        }
+      );
   }
 
   sendkeys(keys, appName?) {

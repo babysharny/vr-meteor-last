@@ -7,6 +7,8 @@ import {SessionService} from "../../services/session.service";
 import {GamesService} from "../../services/games.service";
 import {AdminPanelService} from "../../services/admin-panel.service";
 
+import {Sessions} from "../../../../both/collections/sessions.collection";
+
 import template from './session-log.component.html';
 import styles from './session-log.component.css';
 
@@ -19,22 +21,17 @@ import styles from './session-log.component.css';
 export class SessionLogComponent implements OnInit {
 
 
-  steamId;
+  steam: string; // name of steam account
 
-  startedOn;
+  startDate: string;
+  endDate: string;
 
-  initMins;
-  freeMins;
-  players;
-  des;
-
-  realTime;
-  gamez;
-
+  time: string;   // time in game
+  players: any[]; // name // phone
+  games: any[];   // name of game
+  discount: any;  // free mins // discount in prcent
+  money: string;  // cash
   closedOn;
-
-  CLIENT_ID = 'AIzaSyBVEBANyo9yc-RgxzvI80ZS7jM_f_CLFQE';
-  SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
 
   constructor(
     private session: SessionService,
@@ -43,9 +40,40 @@ export class SessionLogComponent implements OnInit {
   ) { }
 
   ngOnInit() { }
+  
+  fake = {
+    steam: 'NEO',
+    startDate: '1234567890987',
+    endDate: '1234567898765',
+    time: '12 min',
+    players: [
+      {
+        name: 'Alex',
+        phone: ''
+      }
+    ],
+    games: [
+      'Moirai',
+      'Dota',
+      'Hueta'
+    ],
+    discount: {
+      freeMins: '25 min',
+      discount: '30%'
+    },
+    money: '0 P'
+  };
 
-  auth() {
-
+  saveSession() {
+    Sessions.insert(this.fake);
   }
 
+  playSound(){
+
+    var audio = new Audio('./sound.mp3');
+    audio.addEventListener('canplaythrough', function() {
+      audio.play();
+    });
+
+  }
 }

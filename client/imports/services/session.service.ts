@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {GamesService} from "./games.service";
 import {PlayersService} from "./players.service";
+import {AdminPanelService} from './admin-panel.service';
+
+import {Sessions} from "../../../both/collections/sessions.collection";
 
 enum State {
   Stopped = 1,
@@ -17,11 +20,18 @@ export class Session {
 
   state = State.Stopped;
   players: Player[] = [];
+  games: any[] = [];
   minutes: number = 0;
   logs: any[];
 
-  constructor() {
+  constructor() { }
 
+  addGame(game: any) {
+    if(this.games.length > 0 && this.games[this.games.length - 1] == game) {
+      console.log('Secondary start game: ', game.name);
+      return;
+    }
+    this.games.push(game);
   }
 
   addPlayer(player: Player) {
@@ -49,10 +59,14 @@ export class SessionService {
     min60: 1000,
   };
 
+  timer = new StopWatch();
+
+
   constructor(
     private gamesService: GamesService,
     private remote: PlayersService,
-    private games: GamesService
+    private games: GamesService,
+    private admin: AdminPanelService
   ) { }
 
   isStarted(): boolean {
@@ -66,8 +80,19 @@ export class SessionService {
     return (this.current.players.length > 0);
   }
 
-  nextState(): boolean {
+  nextState() {
     if (this.current.state == State.Stopped) {
+      this.startSession();
+    }
+    else if (this.current.state == State.Started) {
+      this.pauseSession();
+    }
+    else if (this.current.state == State.Paused) {
+      this.stopSession();
+    }
+  }
+
+  startSession() {
       console.log('Start session');
       if (!this.validatePlayers()) {
         alert('Add players!');
@@ -75,14 +100,15 @@ export class SessionService {
       }
       // start timer
       this.timer.start();
-
+      this.timer.endTime = (this.minutes + this.freeMinutes)*60;
       // todo add game to log and save to Google Sheets
 
       // todo set GG button name
 
       this.current.state = State.Started;
-    }
-    else if (this.current.state == State.Started) {
+  }
+
+  pauseSession() {
       console.log('Pause session');
       // pause timer
       this.timer.pause();
@@ -96,21 +122,40 @@ export class SessionService {
       // todo open text field to save descriptions
 
       this.current.state = State.Paused;
-
-    }
-    else if (this.current.state == State.Paused) {
-      console.log('New session');
-
-      // todo send session to Google Sheets
-      this.timer.stop();
-      this.current = new Session();
-
-      this.current.state = State.Stopped;
-
-    }
   }
 
-  timer = new StopWatch();
+  stopSession(){
+      console.log('Stop session');
+      // todo send session to Google Sheets
+      // create obj
+      // save to mongo
+      this.saveSession();
+
+
+      this.timer.stop();
+      this.current = new Session();
+      this.current.state = State.Stopped;
+  }
+
+  saveSession() {
+
+    let fake = {
+      steam: this.admin.data.name,
+      startDate: this.timer.startDate,
+      endDate: new Date(),
+      time: this.timer.moment,
+      players: this.current.players,
+      games: this.current.games.map(game => game.name),
+      discount: {
+        freeMins: this.freeMinutes,
+        discount: this.discount
+      },
+      money: '0 P'
+    };
+
+    Sessions.insert(fake);
+  }
+
 
   startTimer() {
     this.timer.start();
@@ -130,6 +175,10 @@ export class StopWatch {
   timer: any;
   moment = 0;
 
+  startDate = new Date();
+
+  endTime = 15;
+
   constructor() { }
 
   start() {
@@ -138,6 +187,9 @@ export class StopWatch {
       () => {
         this.moment += 1;
         // console.log('time ', this.toH())
+        if (this.moment == this.endTime) {
+          this.playSound();
+        }
       },
       1000
     );
@@ -167,6 +219,15 @@ export class StopWatch {
     if (seconds < 10) {sS = '0' + seconds;}
 
     return hS+':'+mS+':'+sS;
+  }
+
+  playSound() {
+
+    var audio = new Audio('./sound.mp3');
+    audio.addEventListener('canplaythrough', function() {
+      audio.play();
+    });
+
   }
 }
 

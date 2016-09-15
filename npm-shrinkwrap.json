@@ -247,6 +247,11 @@
       "from": "extsprintf@1.0.2",
       "resolved": "https://registry.npmjs.org/extsprintf/-/extsprintf-1.0.2.tgz"
     },
+    "find-exec": {
+      "version": "0.0.8",
+      "from": "find-exec@0.0.8",
+      "resolved": "https://registry.npmjs.org/find-exec/-/find-exec-0.0.8.tgz"
+    },
     "forever-agent": {
       "version": "0.6.1",
       "from": "forever-agent@>=0.6.1 <0.7.0",
@@ -1061,6 +1066,11 @@
       "from": "pinkie-promise@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/pinkie-promise/-/pinkie-promise-2.0.1.tgz"
     },
+    "play-sound": {
+      "version": "0.0.9",
+      "from": "play-sound@latest",
+      "resolved": "https://registry.npmjs.org/play-sound/-/play-sound-0.0.9.tgz"
+    },
     "process-nextick-args": {
       "version": "1.0.7",
       "from": "process-nextick-args@>=1.0.6 <1.1.0",
@@ -1147,6 +1157,11 @@
       "version": "2.0.0",
       "from": "supports-color@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-2.0.0.tgz"
+    },
+    "sync-exec": {
+      "version": "0.6.2",
+      "from": "sync-exec@>=0.6.2 <0.7.0",
+      "resolved": "https://registry.npmjs.org/sync-exec/-/sync-exec-0.6.2.tgz"
     },
     "tough-cookie": {
       "version": "2.3.1",
