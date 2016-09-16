@@ -180,7 +180,7 @@ export class SessionService {
         freeMins: this.freeMinutes + ' минут',
         discount: this.discount + '%'
       },
-      money: '0 P'
+      money: this.report(this.timer.moment, this.freeMinutes*60, this.discount) + ' P'
     };
 
     Sessions.insert(fake);
@@ -198,7 +198,45 @@ export class SessionService {
   stopTimer() {
     this.timer.stop();
   }
+
+  report(time: any, bonusTime: any, discount: any): any {
+
+    if (time <= bonusTime) {
+      return '0';
+    }
+
+    time -= bonusTime;
+
+    let priceList = {
+      min15:  350,
+      min30:  650,
+      min45:  800,
+      min60: 1000,
+    };
+
+    let secondPrice = 0;
+    if (time <= 15*60) {
+      secondPrice = priceList.min15 / 15 / 60;
+    }
+    else if (time <= 30*60) {
+      secondPrice = priceList.min30 / 30 / 60;
+    }
+    else if (time <= 45*60) {
+      secondPrice = priceList.min45 / 45 / 60;
+    }
+    else {
+      secondPrice = priceList.min60 / 60 / 60;
+    }
+
+    if (discount > 0) {
+      secondPrice -= secondPrice*discount/100;
+    }
+
+    return Math.floor(time * secondPrice);
+  }
 }
+
+
 
 export class StopWatch {
 
