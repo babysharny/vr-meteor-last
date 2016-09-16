@@ -202,7 +202,7 @@ export class GoogleApiController {
           session.players && session.players[i] ? session.players[i].phone : '', // Players phone
           session.games && session.games[i] ? session.games[i] : '', // game
           i == 0 ? session.discount.freeMins : '',
-          i == 1 ? session.discount.discount : '',
+          i == 0 ? session.discount.discount : '',
           i == 0 ? session.money : ''
         ];
       // }

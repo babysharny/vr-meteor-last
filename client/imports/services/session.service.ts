@@ -3,6 +3,8 @@ import {GamesService} from "./games.service";
 import {PlayersService} from "./players.service";
 import {AdminPanelService} from './admin-panel.service';
 
+import * as moment from 'moment';
+
 import {Sessions} from "../../../both/collections/sessions.collection";
 
 enum State {
@@ -165,16 +167,18 @@ export class SessionService {
 
   saveSession() {
 
+    let now = moment().format('MM-DD-YYYY');
+    
     let fake = {
       steam: this.admin.data.name,
-      startDate: this.timer.startDate,
-      endDate: new Date(),
-      time: this.timer.moment,
+      startDate: moment(this.timer.startDate).format('DD/MM HH:mm'),
+      endDate: moment().format('DD/MM HH:mm'),
+      time: moment.unix(this.timer.moment).utc().format('HH:mm:ss'),
       players: this.current.players,
       games: this.current.games.map(game => game.name),
       discount: {
-        freeMins: this.freeMinutes,
-        discount: this.discount
+        freeMins: this.freeMinutes + ' минут',
+        discount: this.discount + '%'
       },
       money: '0 P'
     };

@@ -1031,6 +1031,11 @@
       "from": "minimist@>=1.1.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz"
     },
+    "moment": {
+      "version": "2.15.0",
+      "from": "moment@latest",
+      "resolved": "https://registry.npmjs.org/moment/-/moment-2.15.0.tgz"
+    },
     "node-forge": {
       "version": "0.6.42",
       "from": "node-forge@>=0.6.33 <0.7.0",
