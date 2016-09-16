@@ -18,6 +18,7 @@ export class Player {
 
 export class Session {
 
+
   state = State.Stopped;
   players: Player[] = [];
   games: any[] = [];
@@ -44,6 +45,8 @@ export class SessionService {
 
   // state: State = State.Stopped;
   // players: Player[] = [];
+
+  adminMode = false;
 
   current = new Session;
 
@@ -117,14 +120,14 @@ export class SessionService {
 
       // stop all games
       this.games.killAll();
-
+      this.remote.video();
       // todo open video or bill on remote
       // todo open text field to save descriptions
 
       this.current.state = State.Paused;
   }
 
-  stopSession(){
+  stopSession() {
       console.log('Stop session');
       // todo send session to Google Sheets
       // create obj
@@ -135,6 +138,29 @@ export class SessionService {
       this.timer.stop();
       this.current = new Session();
       this.current.state = State.Stopped;
+  }
+
+  toggleAdminMode() {
+    if (this.adminMode) {
+      this.stopAdminMode();
+    }
+    else {
+      this.startAdminMode();
+    }
+  }
+
+  startAdminMode() {
+    this.adminMode = true;
+    this.games.killAll();
+    this.current = new Session;
+    this.current.state = State.Stopped;
+  }
+
+  stopAdminMode() {
+    this.adminMode = false;
+    this.games.killAll();
+    this.current = new Session;
+    this.current.state = State.Stopped;
   }
 
   saveSession() {

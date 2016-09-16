@@ -67,4 +67,8 @@ export class MainActionsComponent implements OnInit {
     // this.remote.killApps(apps);
   }
 
+  adminModeToggle() {
+    this.session.toggleAdminMode();
+  }
+
 }

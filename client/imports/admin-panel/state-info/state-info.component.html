@@ -14,6 +14,8 @@
 
   <div class="col-md-2 col-sm-2 col-xs-2">
     <div class="names">
+      <p *ngIf="session.adminMode">Admin Mode!</p>
+       <button *ngIf="session.adminMode" class="btn btn-default" (click)="session.toggleAdminMode()">off</button>
       <p *ngFor="let player of session.current.players">{{player.name}}</p>
     </div>
   </div>

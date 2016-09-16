@@ -32,7 +32,7 @@ export class GamesGridComponent implements OnInit {
   selectGame(game) {
     // Check started games
 
-    if (!this.session.validatePlayers()) {
+    if (!this.session.adminMode && !this.session.validatePlayers()) {
       alert('Add Players!');
       return;
     }
@@ -48,6 +48,11 @@ export class GamesGridComponent implements OnInit {
 
     this.selectedGame = game;
     this.remote.startGame(game);
+
+    if (this.session.adminMode) {
+      return;
+    }
+
     this.session.current.addGame(game); // added game for logs  
 
     if (!this.session.isStarted()) {

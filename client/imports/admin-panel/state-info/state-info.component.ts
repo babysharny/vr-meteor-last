@@ -28,4 +28,8 @@ export class StateInfoComponent implements OnInit {
     console.log(this.session.timer.moment);
   }
 
+  disableAdminMode() {
+    this.session.toggleAdminMode();
+  }
+
 }
