@@ -1,8 +1,6 @@
 import {Component, OnInit, Input, Inject} from '@angular/core';
 
 import {GameComponent} from "./components/game.component";
-import {GridPipe} from "./pipes/grid.pipe";
-
 import {SessionService} from "../../services/session.service";
 import {PlayersService} from "../../services/players.service";
 import {GamesService} from "../../services/games.service";
@@ -14,7 +12,6 @@ import styles from './games-grid.component.css';
   // moduleId: module.id,
   selector: 'app-games-grid',
   directives: [GameComponent],
-  pipes: [GridPipe],
   template,
   styles
 })

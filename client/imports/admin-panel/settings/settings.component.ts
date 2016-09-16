@@ -29,4 +29,9 @@ export class SettingsComponent implements OnInit {
     this.gamesService.saveGameProcessName(game);
   }
 
+  toggleHidden(game) {
+    game.hidden = !game.hidden; 
+    this.gamesService.saveGame(game); 
+  }
+
 }

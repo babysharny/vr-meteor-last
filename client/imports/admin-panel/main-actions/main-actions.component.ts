@@ -56,7 +56,8 @@ export class MainActionsComponent implements OnInit {
 
   fullScreen() {
     // this.games.
-    this.remote.sendkeys('!{ENTER}', 'regeria');
+    // this.games.
+    this.remote.sendkeys('!{ENTER}');
   }
 
 

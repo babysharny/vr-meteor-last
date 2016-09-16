@@ -9,6 +9,7 @@ import {AdminPanelService} from "./admin-panel.service";
 export class GamesService {
 
   games: any;
+  allGames: any;
 
   constructor(
     private admin: AdminPanelService,
@@ -19,6 +20,11 @@ export class GamesService {
 
   init(steamId){
     this.games = Games.find({
+      steamId: steamId,
+      hidden: false
+    });
+
+    this.allGames = Games.find({
       steamId: steamId
     });
   }

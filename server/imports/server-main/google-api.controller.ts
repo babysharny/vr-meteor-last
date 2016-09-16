@@ -1,13 +1,9 @@
 import {SessionObject} from "../../../both/models/session.object";
-console.log('relax');
 
 import * as fs from 'fs';
 import * as readline from 'readline';
 import * as google from 'googleapis';
 import * as googleAuth from 'google-auth-library';
-
-// import { SessionObject } from './../'
-// import { SessionObject } from './../../../../both/models/session.object';
 
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/sheets.googleapis.com-nodejs-quickstart.json
@@ -26,13 +22,12 @@ export class GoogleApiController {
 
 
   constructor() {
-    console.log('Token path: ', TOKEN_PATH);
+    console.log('GA Token path: ', TOKEN_PATH);
   }
 
   start(callback: (res: any) => void) {
     this.callback = callback;
-    console.log('Welcome to GoogleApiController');
-    // this.callback('ready33');
+    console.log('## Start Google Api Controller');
 
     fs.readFile(
       'assets/app/client_secret.json',
@@ -62,8 +57,6 @@ export class GoogleApiController {
    * @param {function} callback The callback to call with the authorized client.
    */
   authorize(credentials, callback) {
-                console.log(this.callback);
-
     let clientSecret = credentials.installed.client_secret;
     let clientId = credentials.installed.client_id;
     let redirectUrl = credentials.installed.redirect_uris[0];
@@ -74,12 +67,9 @@ export class GoogleApiController {
     fs.readFile(TOKEN_PATH, (err, token) => {
       if (err) {
         this.getNewToken(oauth2Client, callback);
-      } else {
-                    console.log(this.callback);
-
+      } 
+      else {
         oauth2Client.credentials = JSON.parse(token);
-            console.log(this.callback);
-
         callback(oauth2Client);
       }
     });

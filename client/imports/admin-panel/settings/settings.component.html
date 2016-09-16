@@ -19,16 +19,27 @@
 <!-- </div> -->
 <!-- <br /> -->
 
-<div *ngFor="let game of gamesService.games">
+<div *ngFor="let game of gamesService.allGames">
     <div class="row">
         <div class="col-md-4 col-sm-4 col-xs-4">
           <img class="logo" src={{game.logo_big}} onerror="this.src='./img/game_no_img.gif'" width="100%" height="150%" alt="">
         </div>
 
         <div class="col-md-8 col-sm-8 col-xs-8">
-            <label class="stg">{{game.name}}</label>
-            <input class="stg" type="text" [(ngModel)]="game.app" (ngModelChange)="save(game, $event)" name="app">
+          <div class="row">
+            <div class="col-md-8 col-sm-8 col-xs-8">
+              <label class="stg">{{game.name}}</label>
+            </div>
+            
+            <div class="col-md-4 col-sm-4 col-xs-4">
+              <button class="btn btn-default"
+                  [ngClass]="{'selected': game.hidden}"
+                  (click)="toggleHidden(game)">hide</button>
+            </div>
+          </div>          
+          <input class="stg" type="text" [(ngModel)]="game.app" (ngModelChange)="save(game, $event)" name="app">
         </div>
+        
 
     </div>
 

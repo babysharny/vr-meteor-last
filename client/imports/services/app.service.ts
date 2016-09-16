@@ -10,7 +10,7 @@ export class AppService {
   right = {
     name: 'NEO',
     steamId: '76561198016668101',
-    host: '192.168.88.48:8080'
+    host: '192.168.88.48:81'
   };
 
   me = {
@@ -22,7 +22,7 @@ export class AppService {
   left = {
     name: 'SWITCH',
     steamId: '76561198314313838',
-    host: '192.168.88.149:8080'
+    host: '192.168.88.149:81'
   };
 
   constructor(
