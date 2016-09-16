@@ -18,3 +18,8 @@ label.stg {
 input.stg {
   margin-top: 6px;
 }
+
+.setting-row {
+  border-bottom: 2px solid #464545;
+  padding-top: 5px;
+}
