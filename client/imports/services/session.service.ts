@@ -247,10 +247,13 @@ export class StopWatch {
 
   endTime = 15;
 
+  isPlay = false;
+
   constructor() { }
 
   start() {
     this.pause();
+    this.isPlay = true;
     this.timer = setInterval(
       () => {
         this.moment += 1;
@@ -264,10 +267,12 @@ export class StopWatch {
   }
 
   pause() {
+    this.isPlay = false;
     clearInterval(this.timer);
   }
 
   stop() {
+    this.isPlay = false;
     clearInterval(this.timer);
     this.moment = 0;
   }

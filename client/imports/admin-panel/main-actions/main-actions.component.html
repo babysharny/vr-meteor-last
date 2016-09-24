@@ -58,3 +58,20 @@
               <button class="btn btn-default" (click)="service.showSettings = !service.showSettings">settings</button>
     </div>
 </div>
+<br />
+<div class="row">
+    <div class="col-md-3">
+              <button 
+              class="btn btn-default" 
+              (click)="sendKeys('{ENTER}')">Enter</button>
+    </div>
+    <div class="col-md-3">
+              <button class="btn btn-default" (click)="sendKeys('!{TAB}')">Alt+Tab</button>
+    </div>
+    <div class="col-md-3">
+              <button class="btn btn-default" (click)="sendKeys('{ENTER}')">Click</button>
+    </div>
+    <div class="col-md-3">
+              <button class="btn btn-default" (click)="sendKeys('%23{UP}')">cmd+Up</button>
+    </div>
+</div>

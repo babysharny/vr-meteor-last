@@ -26,6 +26,5 @@ dispatch:mocha-phantomjs
 shell-server
 http
 peerlibrary:xml2js
-ongoworks:google-spreadsheets
 momentjs:moment
 autopublish

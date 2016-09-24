@@ -17,6 +17,8 @@
       <p *ngIf="session.adminMode">Admin Mode!</p>
        <button *ngIf="session.adminMode" class="btn btn-default" (click)="session.toggleAdminMode()">off</button>
       <p *ngFor="let player of session.current.players">{{player.name}}</p>
+      <button *ngIf="session.current.state == 2 && session.timer.isPlay" class="btn btn-default" (click)="session.timer.pause()">pause</button>
+      <button *ngIf="session.current.state == 2 && !session.timer.isPlay" class="btn btn-default" (click)="session.timer.start()">play</button>
     </div>
   </div>
 

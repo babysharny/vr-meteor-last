@@ -54,10 +54,25 @@ export class MainActionsComponent implements OnInit {
     this.remote.video();
   }
 
+
   fullScreen() {
-    // this.games.
-    // this.games.
-    this.remote.sendkeys('!{ENTER}');
+    // if ()
+    let id = '';
+    // this.games.selectedGame.appID;
+
+    if (id == '462520') {
+      // "appID":"462520",
+      // "name":"Super Kaiju",
+      this.remote.sendkeys('%23{UP}');
+    }
+    else {
+      this.remote.sendkeys('%23{UP}');
+      // this.remote.sendkeys('!{ENTER}');  
+    }
+  }
+
+  sendKeys(keys) {
+   this.remote.sendkeys(keys); 
   }
 
 
@@ -70,5 +85,5 @@ export class MainActionsComponent implements OnInit {
   adminModeToggle() {
     this.session.toggleAdminMode();
   }
-
+  
 }
