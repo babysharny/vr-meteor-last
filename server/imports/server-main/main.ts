@@ -3,14 +3,20 @@ import { DemoDataObject } from '../../../both/models/demo-data-object';
 import { HTTP } from 'meteor/http';
 import { GameObject } from '../../../both/models/game.object';
 import { Games } from '../../../both/collections/games.collection';
+import { Remotes } from '../../../both/collections/remotes.collection';
 import { Sessions } from '../../../both/collections/sessions.collection';
 import { GoogleApiController } from './google-api.controller';
 
 
 export class Main {
 
+
   gac: GoogleApiController;
-  constructor() { }
+  constructor() {
+    Meteor.publish('remotes', function () {
+      return Remotes.find();
+    });
+  }
 
   start():void {
 
@@ -34,11 +40,40 @@ export class Main {
 
     this.initGamesData('76561198314313838');
     this.initGamesData('76561198016668101');
+
+    this.initRemotes();
     // this.initGamesData('76561198321699378'); // me
   }
 
   ready(res: any): void {
     console.info('## Google API Ready!');
+  }
+
+  initRemotes() {
+      if(!Remotes.findOne({})) {
+        let data = [
+          {
+            name: 'NEO',
+            steamId: '76561198016668101',
+            host: '192.168.88.48'
+          },
+          {
+            name: 'SIMON',
+            steamId: '76561198321699378',
+            host: '192.168.1.69'
+          },
+          {
+            name: 'SWITCH',
+            steamId: '76561198314313838',
+            host: '192.168.88.149'
+          }
+        ];
+        data.forEach(remote => {
+          Remotes.insert(remote);
+          console.log('Add new remote: ', remote);
+        });
+      }
+
   }
 
   initGamesData(steamId) {
